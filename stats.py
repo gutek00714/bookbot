@@ -15,3 +15,17 @@ def count_symbols(full_text):
         else:
             all_symbols_count[item] = 1
     return all_symbols_count
+
+
+def sort_on(items):
+    return items["num"]
+
+#get a dict from count_symbols, remake it into a list of dicts and sort
+def raport(char_counts):
+    counted_list = []
+    for char, num in char_counts.items():
+        new_dict = {"char": char, "num": num}
+        counted_list.append(new_dict)
+    
+    counted_list.sort(reverse=True, key=sort_on)
+    return counted_list

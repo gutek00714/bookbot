@@ -1,5 +1,7 @@
+import sys
 from stats import count_words
 from stats import count_symbols
+from stats import raport
 
 
 def get_book_text(file_path):
@@ -9,11 +11,30 @@ def get_book_text(file_path):
     
     
 def main():
-    frankenstein_path = './books/frankenstein.txt'
-    text = get_book_text(frankenstein_path)
+    if len(sys.argv) < 2:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+    book_path = sys.argv[1]
+    text = get_book_text(book_path)
     counter = count_words(text)
-    print(f'Found {counter} total words')
+    #print(f'Found {counter} total words')
     all_characters_count = count_symbols(text)
-    print(all_characters_count)
+    end_raport = raport(all_characters_count)
+
+    print("============ BOOKBOT ============")
+    print(f"Analyzing book found at {book_path}...")
+    print("----------- Word Count ----------")
+    print(f"Found {counter} total words")
+    print("--------- Character Count -------")
+
+    for item in end_raport:
+        char = item["char"]
+        num = item["num"]
+        if char.isalpha():
+            print(f'{char}: {num}')
+
+    print("============= END ===============")
+
+
 
 main()
